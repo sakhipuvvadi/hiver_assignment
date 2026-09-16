@@ -6,7 +6,7 @@ The system combines **conversation reconstruction, semantic embeddings, clusteri
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 Customer-support conversations often contain repeated questions and recurring support issues. This project uses historical AppleSupport conversations to build a knowledge base that can understand a new customer query and generate an appropriate support response.
 
@@ -29,8 +29,184 @@ Customer-support conversations often contain repeated questions and recurring su
    - Returns either `AUTOMATIC` or `HUMAN`.
 
 ---
+# Installation & Setup
 
-# 🏗️ System Architecture
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/sakhipuvvadi/hiver.git
+cd hiver
+```
+
+---
+
+#  2. Backend Setup
+
+Go to the backend directory:
+
+```bash
+cd backend
+```
+
+Create a Python virtual environment:
+
+```bash
+python -m venv venv
+```
+
+### Windows PowerShell
+
+```powershell
+venv\Scripts\Activate.ps1
+```
+
+### Windows CMD
+
+```cmd
+venv\Scripts\activate
+```
+
+### macOS / Linux
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+#  3. Install Python Dependencies
+
+After activating the virtual environment:
+
+```bash
+pip install -r requirements.txt
+```
+
+If `requirements.txt` is not present in the repository, install the project's required packages manually or create the requirements file before running the application.
+
+---
+
+#  4. Configure the Groq API Key
+
+Inside the `backend` folder, create:
+
+```text
+.env
+```
+
+Add:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Replace:
+
+```text
+your_groq_api_key_here
+```
+
+with your own Groq API key.
+
+### Important
+
+Never commit your API key to GitHub.
+
+The `.env` file is excluded using `.gitignore`.
+
+---
+
+#  5. Start the Backend
+
+Make sure the virtual environment is activated.
+
+From:
+
+```text
+hiver/backend
+```
+
+run:
+
+```bash
+uvicorn main:app --reload
+```
+
+The backend will run at:
+
+```text
+http://127.0.0.1:8000
+```
+
+You can also check:
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+#  6. Frontend Setup
+
+Open a **new terminal**.
+
+Go to the frontend:
+
+```bash
+cd hiver/frontend
+```
+
+Install Node dependencies:
+
+```bash
+npm install
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
+
+The frontend will normally run at:
+
+```text
+http://127.0.0.1:5173
+```
+
+Open the URL shown in the terminal.
+
+---
+
+#  Running the Complete Application
+
+You need two terminals.
+
+### Terminal 1 — Backend
+
+```bash
+cd hiver/backend
+venv\Scripts\Activate.ps1
+uvicorn main:app --reload
+```
+
+### Terminal 2 — Frontend
+
+```bash
+cd hiver/frontend
+npm install
+npm run dev
+```
+
+Then open:
+
+```text
+http://127.0.0.1:5173
+```
+
+---
+
+# System Architecture
 
 ```text
                     ┌──────────────────────────┐
@@ -123,7 +299,7 @@ Customer-support conversations often contain repeated questions and recurring su
 
 ---
 
-# 📊 Dataset
+#  Dataset
 
 The project uses the **Twitter Customer Support (TWCS)** dataset.
 
@@ -141,14 +317,6 @@ Important fields include:
 | `response_tweet_id` | IDs of responses |
 | `in_response_to_tweet_id` | Parent tweet ID |
 
-### Speaker identification
-
-- `inbound = True` → Customer
-- `inbound = False` and `author_id = AppleSupport` → AppleSupport
-
-Both customer and AppleSupport messages are preserved.
-
----
 
 # 🔗 Conversation Reconstruction
 
@@ -179,7 +347,7 @@ This conversation-level representation is used to build the knowledge base.
 
 ---
 
-# 🧠 Knowledge Base
+# Knowledge Base
 
 The reconstructed conversations are stored as:
 
@@ -202,7 +370,7 @@ The final processed dataset contains approximately **81,856 conversations**.
 
 ---
 
-# 🔍 Semantic Embeddings
+#  Semantic Embeddings
 
 The project uses:
 
@@ -224,7 +392,7 @@ backend/models/conversation_embeddings.npy
 
 ---
 
-# 🧩 Clustering
+#  Clustering
 
 K-Means clustering is used to organize conversations into:
 
@@ -238,7 +406,7 @@ Representative conversations close to each cluster centroid are selected to unde
 
 ---
 
-# 🏷️ Automatic Intent Discovery
+# Automatic Intent Discovery
 
 Instead of manually naming every cluster, representative conversations are sent to a Qwen model through the Groq API.
 
@@ -273,7 +441,7 @@ apple_support_intents.csv
 
 ---
 
-# ⚡ Live Query Processing
+#  Live Query Processing
 
 When a customer sends a new query:
 
@@ -347,7 +515,7 @@ The frontend displays the relevant information to the user.
 
 ---
 
-# 💻 Technology Stack
+#  Technology Stack
 
 ## Frontend
 
@@ -426,184 +594,9 @@ hiver/
 
 ---
 
-# 🚀 Installation & Setup
 
-## 1. Clone the Repository
 
-```bash
-git clone https://github.com/sakhipuvvadi/hiver.git
-cd hiver
-```
-
----
-
-# 🐍 2. Backend Setup
-
-Go to the backend directory:
-
-```bash
-cd backend
-```
-
-Create a Python virtual environment:
-
-```bash
-python -m venv venv
-```
-
-### Windows PowerShell
-
-```powershell
-venv\Scripts\Activate.ps1
-```
-
-### Windows CMD
-
-```cmd
-venv\Scripts\activate
-```
-
-### macOS / Linux
-
-```bash
-source venv/bin/activate
-```
-
----
-
-# 📦 3. Install Python Dependencies
-
-After activating the virtual environment:
-
-```bash
-pip install -r requirements.txt
-```
-
-If `requirements.txt` is not present in the repository, install the project's required packages manually or create the requirements file before running the application.
-
----
-
-# 🔑 4. Configure the Groq API Key
-
-Inside the `backend` folder, create:
-
-```text
-.env
-```
-
-Add:
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-Replace:
-
-```text
-your_groq_api_key_here
-```
-
-with your own Groq API key.
-
-### Important
-
-Never commit your API key to GitHub.
-
-The `.env` file is excluded using `.gitignore`.
-
----
-
-# ▶️ 5. Start the Backend
-
-Make sure the virtual environment is activated.
-
-From:
-
-```text
-hiver/backend
-```
-
-run:
-
-```bash
-uvicorn main:app --reload
-```
-
-The backend will run at:
-
-```text
-http://127.0.0.1:8000
-```
-
-You can also check:
-
-```text
-http://127.0.0.1:8000/
-```
-
----
-
-# ⚛️ 6. Frontend Setup
-
-Open a **new terminal**.
-
-Go to the frontend:
-
-```bash
-cd hiver/frontend
-```
-
-Install Node dependencies:
-
-```bash
-npm install
-```
-
-Start the Vite development server:
-
-```bash
-npm run dev
-```
-
-The frontend will normally run at:
-
-```text
-http://127.0.0.1:5173
-```
-
-Open the URL shown in the terminal.
-
----
-
-# 🔄 Running the Complete Application
-
-You need two terminals.
-
-### Terminal 1 — Backend
-
-```bash
-cd hiver/backend
-venv\Scripts\Activate.ps1
-uvicorn main:app --reload
-```
-
-### Terminal 2 — Frontend
-
-```bash
-cd hiver/frontend
-npm install
-npm run dev
-```
-
-Then open:
-
-```text
-http://127.0.0.1:5173
-```
-
----
-
-# 📂 Required Data Files
+#  Required Data Files
 
 Large generated files are intentionally excluded from GitHub to keep the repository lightweight.
 
