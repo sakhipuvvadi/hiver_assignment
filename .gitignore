@@ -1,0 +1,19 @@
+# Environment
+.env
+backend/.env
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+frontend/node_modules/
+dist/
+
+# Large generated files
+backend/models/conversation_embeddings.npy
+data/*.csv
+backend/evaluation/*.csv
