@@ -307,7 +307,7 @@ Important fields include:
 | `in_response_to_tweet_id` | Parent tweet ID |
 
 
-# 🔗 Conversation Reconstruction
+# Conversation Reconstruction
 
 Tweets are connected using both:
 
